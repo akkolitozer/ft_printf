@@ -24,6 +24,8 @@ int	handle_format(va_list *args, char format)
 	}
 	else if (format == '%')
 		size += ft_putchar('%');
+	else
+		size += ft_putchar(format);
 	return (size);
 }
 
@@ -41,11 +43,13 @@ int	ft_printf(const char *str, ...)
 		if (*str == '%')
 		{
 			str++;
-			size += handle_format(&args, *str);
+			if (*str)
+				size += handle_format(&args, *str);
 		}
 		else
 			size += ft_putchar(*str);
-		str++;
+		if (*str)
+			str++;
 	}
 	va_end(args);
 	return (size);
@@ -55,8 +59,10 @@ int	ft_printf(const char *str, ...)
 // {
 // 	if (argc == 2)
 // 	{
-// 		ft_printf("3endi %s fi dem %% %s %u %p\n", argv[1], "", 3000000000, argv);
-// 		printf("3endi %s fi dem %% %s %u %p\n", argv[1], "", 3000000000, argv);
+// 		printf("\n%d\n", ft_printf("3endi %s fi dem %% %s %u %x %q %", argv[1], "", 3000000000, argv));
+// 		printf("-----\n");
+// 		printf("\n%d\n", printf("3endi %s fi dem %% %s %u %x %q %", argv[1], "", 3000000000, argv));
+// 		printf("-----\n");
 // 	}
 // 	return (0);
 // }
